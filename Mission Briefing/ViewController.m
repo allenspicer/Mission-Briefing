@@ -25,7 +25,7 @@
 {
     [super viewDidLoad];
 
-    //
+    //**set UI Elements equal to nil value
     // 1. These three UI elements need to be emptied on launch
     //    Hint: there is a string literal that represents empty
     //
@@ -49,12 +49,13 @@
         [self.agentNameTextField resignFirstResponder];
     }
     
-    //
+    //**Ask if (-) text portion of the agentName Field is equal to nothing
+    //**Ask if (-) text portion of the agentPassword Field is equal to nothing
     // 2. Check whether there is text in BOTH the name and password textfields
     //
-    if (self.agentNameTextField != nil  && self.agentPasswordTextField != nil)
+    if (![self.agentNameTextField.text isEqual: @""]  && ![self.agentPasswordTextField.text isEqual: @""])
     {
-        //
+        //**Cut string into array based on wherever a space exists.
         // 3. The greetingLabel needs to be populated with the the string "Good evening, Agent #", where # is the last name of
         //    the agent logging in. The agent's full name is listed in the text field, but you need to pull out just the last
         //    name. Open the Apple Documentation and go to the page for NSString. There is a section in the left called "Dividing
@@ -65,10 +66,11 @@
         NSString *agentName = self.agentNameTextField.text;
         NSArray *agentNameArray = [agentName componentsSeparatedByString:@" "];
         
-        // Additional step(s) to remove only the last name
-        self.greetingLabel.text = [NSString stringWithFormat:@"Good evening, Agent %@", agentNameArray[1]];
+        //** outputs string with string object inside, listed after. takes last object from array and places into string.
+        //Additional step(s) to remove only the last name
+        self.greetingLabel.text = [NSString stringWithFormat:@"Good evening, Agent %@", [agentNameArray lastObject]];
         
-        //
+        //** displays text with same input of object with same format
         // 4. The mission briefing textview needs to be populated with the briefing from HQ, but it must also include the last
         //    name of the agent that logged in. You will notice in the text a "%@" string after the word "Agent". This
         //    instructs the system to replace the "%@" with an actual value at runtime. Perhaps you could use the text in the
@@ -78,9 +80,10 @@
         //
         
         self.missionBriefingTextView.text = [NSString stringWithFormat:
-            @"This mission will be an arduous one, fraught with peril. You will cover much strange and unfamiliar territory. Should you choose to accept this mission, Agent %@, you will certainly be disavowed, but you will be doing your country a great service. This message will self destruct in 5 seconds.", agentNameArray[1]];
+            @"This mission will be an arduous one, fraught with peril. You will cover much strange and unfamiliar territory. Should you choose to accept this mission, Agent %@, you will certainly be disavowed, but you will be doing your country a great service. This message will self destruct in 5 seconds.", [agentNameArray lastObject]];
         
-        //
+        //**first defines a color (authentica...) using standard tool
+        //**then displays background color we just defined
         // 5. The view's background color needs to switch to green to indicate a successful login by the agent.
         //
         //    The color's RGB value is Red: 0.585, Green: 0.78, Blue: 0.188 with an alpha of 1. There is a class method on the
@@ -92,21 +95,13 @@
     
         UIColor *authenticatedBackgroundColor = [UIColor colorWithRed:(0.585) green:(0.78) blue:(0.188) alpha:(1)];
         
-       // self.ViewController.backgroundColor = [UIColor authenticatedBackgroundColor];
-        
-        
-        
-       // self.tableView.backgroundColor = [UIColor clearColor];
-        
-       // self.parentViewController.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.2 blue:0.5 alpha:0.7];
-        
-        
+        self.view.backgroundColor = authenticatedBackgroundColor;
         
         // Additional step to set the above color object to self.view's background color
     }
     else
     {
-        //
+        //**same below
         // 6. The view's background color needs to switch to red to indicate a failed login by the agent.
         //
         //    The color's RGB value is Red: 0.78, Green: 0.188, Blue: 0.188 with an alpha of 1. There is a class method on the
@@ -117,7 +112,7 @@
         
         UIColor *accessDeniedBackgroundColor = [UIColor colorWithRed:(0.78) green:(0.188) blue:(0.188) alpha:(1)];
         
-      //  ViewController.backgroundColor = [authenticatedBackgroundColor];
+       self.view.backgroundColor = accessDeniedBackgroundColor;
         
         // Additional step to set the above color object to self.view's background color
     }
